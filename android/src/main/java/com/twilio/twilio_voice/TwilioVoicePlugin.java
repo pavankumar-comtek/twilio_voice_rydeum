@@ -422,18 +422,40 @@ public class TwilioVoicePlugin implements FlutterPlugin, MethodChannel.MethodCal
             String accessToken = call.argument("accessToken");
             this.unregisterForCallInvites(accessToken);
             result.success(true);
-        } else if (call.method.equals("makeCall")) {
-            Log.d(TAG, "Making new call");
+        } 
+        // else if (call.method.equals("makeCall")) {
+        //     Log.d(TAG, "Making new call");
+        //     sendPhoneCallEvents("LOG|Making new call");
+        //     final HashMap<String, String> params = new HashMap<>();
+        //     Map<String, Object> args = call.arguments();
+        //     for (Map.Entry<String, Object> entry : args.entrySet()) {
+        //         String key = entry.getKey();
+        //         Object value = entry.getValue();
+        //         if(!key.equals("From") && value != null){
+        //             params.put(key, value.toString());
+        //         }
+        //     }
+        //     this.callOutgoing = true;
+        //     final ConnectOptions connectOptions = new ConnectOptions.Builder(this.accessToken)
+        //             .params(params)
+        //             .build();
+        //     Log.d(TAG, "calling to " + call.argument("To").toString());
+        //     this.activeCall = Voice.connect(this.activity, connectOptions, this.callListener);
+        //     result.success(true);
+        // } 
+           else if (call.method.equals("makeCall")) {
+            Log.d(TAG, "Making new call"+call.argument("To").toString());
             sendPhoneCallEvents("LOG|Making new call");
             final HashMap<String, String> params = new HashMap<>();
-            Map<String, Object> args = call.arguments();
-            for (Map.Entry<String, Object> entry : args.entrySet()) {
-                String key = entry.getKey();
-                Object value = entry.getValue();
-                if(!key.equals("From") && value != null){
-                    params.put(key, value.toString());
-                }
-            }
+            // Map<String, Object> args = call.arguments();
+            // for (Map.Entry<String, Object> entry : args.entrySet()) {
+            //     String key = entry.getKey();
+            //     Object value = entry.getValue();
+            //     if(!key.equals("From") && value != null){
+            //         params.put(key, value.toString());
+            //     }
+            // }
+            params.put("to", call.argument("To").toString());
             this.callOutgoing = true;
             final ConnectOptions connectOptions = new ConnectOptions.Builder(this.accessToken)
                     .params(params)
@@ -441,7 +463,8 @@ public class TwilioVoicePlugin implements FlutterPlugin, MethodChannel.MethodCal
             Log.d(TAG, "calling to " + call.argument("To").toString());
             this.activeCall = Voice.connect(this.activity, connectOptions, this.callListener);
             result.success(true);
-        } else if (call.method.equals("registerClient")) {
+        }
+        else if (call.method.equals("registerClient")) {
             String id = call.argument("id");
             String name = call.argument("name");
             boolean added = false;
