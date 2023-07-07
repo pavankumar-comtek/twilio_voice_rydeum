@@ -796,49 +796,49 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
         }
     }
     
-    func performVoiceCall(uuid: UUID, client: String?, completionHandler: @escaping (Bool) -> Swift.Void) {
+    // func performVoiceCall(uuid: UUID, client: String?, completionHandler: @escaping (Bool) -> Swift.Void) {
+    //     guard let token = accessToken else {
+    //         completionHandler(false)
+    //         return
+    //     }
+        
+    //     let connectOptions: ConnectOptions = ConnectOptions(accessToken: token) { (builder) in
+    //         for (key, value) in self.callArgs {
+    //             if (key != "From") {
+    //                 builder.params[key] = "\(value)"
+    //             }
+    //         }
+    //         builder.uuid = uuid
+    //     }
+    //     let theCall = TwilioVoiceSDK.connect(options: connectOptions, delegate: self)
+    //     self.call = theCall
+    //     self.callKitCompletionCallback = completionHandler
+    // }
+
+
+   func performVoiceCall(uuid: UUID, client: String?, completionHandler: @escaping (Bool) -> Swift.Void) {
+
+        self.sendPhoneCallEvents(description: "LOG|Call Disconnected ios rrr to \(self.callTo)", isError: false)
         guard let token = accessToken else {
             completionHandler(false)
             return
         }
-        
-        let connectOptions: ConnectOptions = ConnectOptions(accessToken: token) { (builder) in
-            for (key, value) in self.callArgs {
-                if (key != "From") {
-                    builder.params[key] = "\(value)"
-                }
-            }
+        let connectOptions = ConnectOptions(accessToken: token) { builder in
+            builder.params = ["to": "\(self.callTo)"]
             builder.uuid = uuid
         }
+        // let connectOptions: ConnectOptions = ConnectOptions(accessToken: token) { (builder) in
+        //     for (key, value) in self.callArgs {
+        //         if (key != "From") {
+        //             builder.params[key] = "\(value)"
+        //         }
+        //     }
+        //     builder.uuid = uuid
+        // }
         let theCall = TwilioVoiceSDK.connect(options: connectOptions, delegate: self)
         self.call = theCall
         self.callKitCompletionCallback = completionHandler
     }
-
-
-   // func performVoiceCall(uuid: UUID, client: String?, completionHandler: @escaping (Bool) -> Swift.Void) {
-
-   //      self.sendPhoneCallEvents(description: "LOG|Call Disconnected ios rrr to \(self.callTo)", isError: false)
-   //      guard let token = accessToken else {
-   //          completionHandler(false)
-   //          return
-   //      }
-   //      let connectOptions = ConnectOptions(accessToken: token) { builder in
-   //          builder.params = ["to": "\(self.callTo)"]
-   //          builder.uuid = uuid
-   //      }
-   //      // let connectOptions: ConnectOptions = ConnectOptions(accessToken: token) { (builder) in
-   //      //     for (key, value) in self.callArgs {
-   //      //         if (key != "From") {
-   //      //             builder.params[key] = "\(value)"
-   //      //         }
-   //      //     }
-   //      //     builder.uuid = uuid
-   //      // }
-   //      let theCall = TwilioVoiceSDK.connect(options: connectOptions, delegate: self)
-   //      self.call = theCall
-   //      self.callKitCompletionCallback = completionHandler
-   //  }
     
     func performAnswerVoiceCall(uuid: UUID, completionHandler: @escaping (Bool) -> Swift.Void) {
         if let ci = self.callInvite {
