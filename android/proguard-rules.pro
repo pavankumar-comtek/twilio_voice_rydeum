@@ -12,6 +12,7 @@
 #-keepattributes InnerClasses
 
 -keep class tvi.webrtc.** { *; }
+-keep class org.webrtc.** { *; }
 -dontwarn tvi.webrtc.**
 -keep class com.twilio.video.** { *; }
 -keep class com.twilio.common.** { *; }
