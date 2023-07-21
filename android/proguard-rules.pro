@@ -11,12 +11,13 @@
 #-keep class com.twilio.voice.** { *; }
 #-keepattributes InnerClasses
 
-# Twilio Programmable Voice
--keep class com.twilio.** { *; }
--keep class tvo.webrtc.** { *; }
--dontwarn tvo.webrtc.**
--keep class com.twilio.voice.** { *; }
+-keep class tvi.webrtc.** { *; }
+-dontwarn tvi.webrtc.**
+-keep class com.twilio.video.** { *; }
+-keep class com.twilio.common.** { *; }
 -keepattributes InnerClasses
-# needed with AGP 8.x
--dontwarn android.content.pm.PackageManager$ApplicationInfoFlags
--dontwarn android.content.pm.PackageManager$PackageInfoFlags
+
+# Facebook Conceal proguard config
+-keep class com.facebook.crypto.** { *; }
+-keep class com.facebook.jni.** { *; }
+-keepclassmembers class com.facebook.cipher.jni.** { *; }
