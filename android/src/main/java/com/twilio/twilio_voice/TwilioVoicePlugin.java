@@ -445,7 +445,7 @@ public class TwilioVoicePlugin implements FlutterPlugin, MethodChannel.MethodCal
         // } 
            else if (call.method.equals("makeCall")) {
             Log.d(TAG, "Making new call"+call.argument("To").toString());
-            System.out.println("rrrrrrrrrrrrrr Making new call "++call.argument("To").toString());
+            System.out.println("rrrrrrrrrrrrrr Making new call " + call.argument("To").toString());
             sendPhoneCallEvents("LOG|Making new call");
             final HashMap<String, String> params = new HashMap<>();
             // Map<String, Object> args = call.arguments();
